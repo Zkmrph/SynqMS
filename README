@@ -1,0 +1,19 @@
+# Synq
+
+A click and input toolkit for Windows games (C++20, Direct2D, no third-party dependencies).
+
+**Build (Windows 10/11):** install "Build Tools for Visual Studio 2022" with *Desktop development with C++*, then run `BUILD_SYNQ.bat`. Output: `dist\Synq.exe`.
+
+**Font:** copy `Shonen.ttf` into `fonts\` (it is copied next to the exe) or install it in Windows. Without it Synq uses Segoe UI. To make the app icon with the Shonen S: `python tools/make_icon.py --font fonts/Shonen.ttf` (needs `pip install pillow`).
+
+**Licence:** the key is checked offline against a salted SHA-256 inside the program; after a valid entry a token bound to the PC is saved to `%APPDATA%\Synq\license.dat`.
+
+**Data** lives in `%APPDATA%\Synq` (settings.ini, presets\<module>\, macros\, wallpaper.*, draft.synqmacro, synq-mode.backup while Synq Mode is on). Data from an earlier `%APPDATA%\Nao` folder is copied over on first start.
+
+**Layout**
+- `src/core` portable logic: settings, presets, macro blocks and file format, licence, colours, diagnostics. Unit tested on any OS.
+- `src/ui` the Direct2D widget toolkit and all pages. `tests/preview` renders every page to SVG without Windows.
+- `src/engine` Win32 engines: clicker, shake, key rotation, macro player, Gaming Hub, screen recorder, hotkeys.
+- `docs/MACRO_FORMAT.md` the macro / settings file formats.
+
+**Tests (no Windows needed):** `./build_preview.sh` builds the UI preview; `tests/*_test.cpp` build with `g++ -std=c++20 -Isrc tests/core_test.cpp src/core/*.cpp`.
